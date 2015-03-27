@@ -1,7 +1,26 @@
 Class Brand
 -----------
-
-
+brandname
+id
 
 Class Store
 -----------
+storename
+id
+
+DB = shoes / shoes_test
+
+stores
+------
+storename | varchar
+id | int
+
+brands
+------
+brandname | varchar
+id | int
+
+stores_brands
+-------------
+store_id | int
+brand_id | int
