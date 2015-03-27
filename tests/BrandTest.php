@@ -99,7 +99,7 @@
         $test_brand = new Brand($brandname, $id);
         $test_brand->save();
 
-        $brandname2 = "Nike";
+        $brandname2 = "Adidas";
         $id2 = 2;
         $test_brand2 = new Brand($brandname2, $id2);
         $test_brand2->save();
@@ -109,6 +109,27 @@
 
         //Assert
         $this->assertEquals([$test_brand, $test_brand2], $result);
+      }
+
+      function test_deleteAll()
+      {
+        //Arrange
+        $brandname = "Nike";
+        $id = 1;
+        $test_brand = new Brand($brandname, $id);
+        $test_brand->save();
+
+        $brandname2 = "Nike";
+        $id2 = 2;
+        $test_brand2 = new Brand($brandname2, $id2);
+        $test_brand2->save();
+
+        //Act
+        Brand::deleteAll();
+
+        //Assert
+        $result = Brand::getAll();
+        $this->assertEquals([], $result);
       }
     }
 ?>
