@@ -86,7 +86,7 @@
   });
 
   //DELETE singular store
-  $app->delete("/stores/{id}", functoin() use ($app) {
+  $app->delete("/stores/{id}", function() use ($app) {
     Store::deleteAll();
     return $app['twig']->render('index.twig');
   });
@@ -97,7 +97,7 @@
     $store = Store::find($id);
     $store->update($storename);
     return $app['twig']->render('stores.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
-  })
+  });
 
   return $app;
 ?>
