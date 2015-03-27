@@ -45,5 +45,20 @@
         //Assert
         $this->assertEquals(1, $result);
       }
+
+      function test_setId()
+      {
+        //Arrange
+        $storename = "Really Good Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+
+        //Act
+        $test_store->setId(2);
+        $result = $test_store->getId();
+
+        //Assert
+        $this->assertEquals(2, $result);
+      }
     }
 ?>
