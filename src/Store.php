@@ -36,6 +36,12 @@
     $result = $statement->fetch(PDO::FETCH_ASSOC);
     $this->setId($result['id']);
   }
+
+  function update($new_storename)
+  {
+    $GLOBALS['DB']->exec("UPDATE stores SET name = '{$new_storename}' WHERE id = {$this->getId()};");
+    $this->setStorename($new_storename);
+  }
   //static functions
   static function getAll()
   {

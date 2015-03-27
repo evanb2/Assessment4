@@ -136,5 +136,22 @@
         //Assert
         $this->assertEquals($test_store, $result);
       }
+
+      function test_update()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $new_storename = "Timberland";
+
+        //Act
+        $test_store->update($new_storename);
+
+        //Assert
+        $this->assertEquals($new_storename, $test_store->getStorename());
+      }
     }
 ?>
