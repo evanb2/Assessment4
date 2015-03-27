@@ -48,8 +48,7 @@
   //CREATE store
   $app->post("/stores", function() use ($app) {
     $storename = $_POST['storename'];
-    $id = $_POST['id'];
-    $store = new Store($storename, $id);
+    $store = new Store($storename);
     $store->save();
     return $app['twig']->render('stores.twig', array('stores' => Store::getAll()));
   });

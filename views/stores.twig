@@ -1,30 +1,29 @@
 <html>
 <head>
-  <title>University of Life Registrar</title>
+  <title>Shoe Store Database</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
 </head>
 <body>
   <br>
   <div class='container'>
-    {% if courses is not empty %}
-      <p>All available courses:</p>
+    {% if stores is not empty %}
+      <p>All available stores:</p>
       <ul>
-        {% for course in courses %}
-          <li><a href="/courses/{{ course.getId }}">{{ course.getName }}</a></li>
+        {% for store in stores %}
+          <li><a href="/stores/{{ store.getId }}">{{ store.getStorename }}</a></li>
         {% endfor %}
       </ul>
     {% endif %}
 
-    <form action='/courses' method='post'>
-      <label for='name'>Course Name:</label>
-      <input id='name' name='name' type='text'>
-      <label for='course_number'>Course Number:</label>
-      <input id='course_number' name='course_number' type='text'>
+    <h3>Enter a Store</h3>
+    <form action='/stores' method='post'>
+      <label for='storename'>Store Name:</label>
+      <input id='storename' name='storename' type='text'>
 
-      <button type='submit'>Add Course to Registry</button>
+      <button type='submit'>Add Store to Databse</button>
     </form>
-    <form action='/delete_courses' method='post'>
-      <button type='submit'>Remove All Courses from Registry</button>
+    <form action='/delete_stores' method='post'>
+      <button type='submit'>Remove All Stores from Registry</button>
     </form>
 
     <p><a href='/'>Home</a></p>
