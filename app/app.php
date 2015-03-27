@@ -56,8 +56,7 @@
   //CREATE brand
   $app->post("/brands", function() use ($app) {
     $brandname = $_POST['brandname'];
-    $id = $_POST['id'];
-    $brand = new Brand($brandname, $id);
+    $brand = new Brand($brandname);
     $brand->save();
     return $app['twig']->render('brands.twig', array('brands' => Brand::getAll()));
   });
