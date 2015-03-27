@@ -85,9 +85,10 @@
   });
 
   //DELETE singular store
-  $app->delete("/stores/{id}", function() use ($app) {
-    Store::deleteAll();
-    return $app['twig']->render('index.twig');
+  $app->delete("/stores/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    $store->delete();
+    return $app['twig']->render('index.twig', array('stores' => Store::getAll()));
   });
 
   //PATCH routes
