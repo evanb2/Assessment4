@@ -6,22 +6,22 @@
     */
 
     require_once "src/Store.php";
-    require_once "src/Brand.php";
+    // require_once "src/Brand.php";
 
     $DB = new PDO('pgsql:host=localhost;dbname=shoes_test');
 
     class StoreTest extends PHPUnit_Framework_TestCase
     {
-      // protected function tearDown()
-      // {
-      //   Store::deleteAll();
-      //   Brand::deleteAll();
-      // }
+      protected function tearDown()
+      {
+        Store::deleteAll();
+        // Brand::deleteAll();
+      }
 
       function test_getStorename()
       {
         //Arrange
-        $storename = "Really Good Shoes";
+        $storename = "Redwing Shoes";
         $id = 1;
         $test_store = new Store($storename, $id);
 
@@ -35,7 +35,7 @@
       function test_getId()
       {
         //Arrange
-        $storename = "Really Good Shoes";
+        $storename = "Redwing Shoes";
         $id = 1;
         $test_store = new Store($storename, $id);
 
@@ -49,7 +49,7 @@
       function test_setId()
       {
         //Arrange
-        $storename = "Really Good Shoes";
+        $storename = "Redwing Shoes";
         $id = 1;
         $test_store = new Store($storename, $id);
 
@@ -59,6 +59,62 @@
 
         //Assert
         $this->assertEquals(2, $result);
+      }
+
+      function test_save()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        //Act
+        $result = Store::getAll();
+
+        //Assert
+        $this->assertEquals($test_store, $result[0]);
+      }
+
+      function test_getAll()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $storename2 = "Danner";
+        $id2 = 2;
+        $test_store2 = new Store($storename2, $id2);
+        $test_store2->save();
+
+        //Act
+        $result = Store::getAll();
+
+        //Assert
+        $this->assertEquals([$test_store, $test_store2], $result);
+      }
+
+      function test_deleteAll()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $storename2 = "Danner";
+        $id2 = 2;
+        $test_store2 = new Store($storename2, $id2);
+        $test_store2->save();
+
+        //Act
+        Store::deleteAll();
+        $result = Store::getAll();
+
+        //Assert
+        $this->assertEquals([], $result);
       }
     }
 ?>
