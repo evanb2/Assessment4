@@ -80,10 +80,24 @@
   });
 
   //DELETE all stores
+  $app->post("/delete_stores", function() use ($app) {
+    Store::deleteAll();
+    return $app['twig']->render('index.twig');
+  });
 
   //DELETE singular store
+  $app->delete("/stores/{id}", functoin() use ($app) {
+    Store::deleteAll();
+    return $app['twig']->render('index.twig');
+  });
 
   //PATCH routes
+  $app->patch("/stores/{id}", function($id) use ($app) {
+    $storename = $_POST['storename'];
+    $store = Store::find($id);
+    $store->update($storename);
+    return $app['twig']->render('stores.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+  })
 
   return $app;
 ?>
