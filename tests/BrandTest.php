@@ -10,7 +10,7 @@
 
     $DB = new PDO('pgsql:host=localhost;dbname=shoes_test');
 
-    class BrandTest extends PHPUnit_Framework_TestCase
+    Class BrandTest extends PHPUnit_Framework_TestCase
     {
       protected function tearDown()
       {
@@ -119,7 +119,7 @@
         $test_brand = new Brand($brandname, $id);
         $test_brand->save();
 
-        $brandname2 = "Nike";
+        $brandname2 = "Adidas";
         $id2 = 2;
         $test_brand2 = new Brand($brandname2, $id2);
         $test_brand2->save();
@@ -140,7 +140,7 @@
         $test_brand = new Brand($brandname, $id);
         $test_brand->save();
 
-        $brandname2 = "Nike";
+        $brandname2 = "Adidas";
         $id2 = 2;
         $test_brand2 = new Brand($brandname2, $id2);
         $test_brand2->save();
@@ -150,6 +150,52 @@
 
         //Assert
         $this->assertEquals($test_brand, $result);
+      }
+
+      function test_getStores()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $storename2 = "Danner";
+        $id2 = 2;
+        $test_store2 = new Store($storename2, $id2);
+        $test_store2->save();
+
+        $brandname = "Nike";
+        $id3 = 3;
+        $test_brand = new Brand($brandname, $id3);
+        $test_brand->save();
+
+        //Act
+        $test_brand->addStore($test_store);
+        $test_brand->addStore($test_store2);
+
+        //Assert
+        $this->assertEquals($test_brand->getStores(), [$test_store, $test_store2]);
+      }
+
+      function test_addStore()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $brandname = "Nike";
+        $id2 = 2;
+        $test_brand = new Brand($brandname, $id2);
+        $test_brand->save();
+
+        //Act
+        $test_brand->addStore($test_store);
+
+        //Assert
+        $this->assertEquals($test_brand->getStores(), [$test_store]);
       }
     }
 ?>

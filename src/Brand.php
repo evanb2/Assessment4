@@ -1,5 +1,5 @@
 <?php
-  class Brand
+  Class Brand
   {
     private $brandname;
     private $id;
@@ -37,6 +37,30 @@
       $statement = $GLOBALS['DB']->query("INSERT INTO brands (brandname) VALUES ('{$this->getBrandname()}') RETURNING id;");
       $result = $statement->fetch(PDO::FETCH_ASSOC);
       $this->setId($result['id']);
+    }
+
+    function addStore($store)
+    {
+      $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
+    }
+
+    function getStores()
+    {
+      $query = $GLOBALS['DB']->query("SELECT store_id FROM stores_brands WHERE brand_id = {$this->getId()};");
+      $store_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+
+      $stores = array();
+      foreach($store_ids as $id) {
+        $store_id = $id['store_id'];
+        $result = $GLOBALS['DB']->query("SELECT * FROM stores WHERE id = {$store_id};");
+        $returned_store = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        $storename = $returned_store[0]['storename'];
+        $id = $returned_store[0]['id'];
+        $new_store = new Store($storename, $id);
+        array_push($stores, $new_store);
+      }
+      return $stores;
     }
     //static functions
     static function getAll()

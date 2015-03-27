@@ -10,7 +10,7 @@
 
     $DB = new PDO('pgsql:host=localhost;dbname=shoes_test');
 
-    class StoreTest extends PHPUnit_Framework_TestCase
+    Class StoreTest extends PHPUnit_Framework_TestCase
     {
       protected function tearDown()
       {
@@ -154,15 +154,71 @@
         $this->assertEquals($new_storename, $test_store->getStorename());
       }
 
-      // function test_delete()
-      // {
-      //   //Arrange
-      //   $storename = "Redwing Shoes";
-      //   $id = 1;
-      //   $test_store = new Store($storename, $id);
-      //   $test_store->save();
-      //
-      //   $brandname =
-      // }
+      function test_delete()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $brandname = "Nike";
+        $id2 = 1;
+        $test_brand = new Brand($brandname, $id2);
+        $test_brand->save();
+
+        //Act
+        $test_store->addBrand($test_brand);
+        $test_store->delete();
+
+        //Assert
+        $this->assertEquals([], $test_brand->getStores());
+      }
+
+      function test_addBrand()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $brandname = "Nike";
+        $id2 = 1;
+        $test_brand = new Brand($brandname, $id2);
+        $test_brand->save();
+
+        //Act
+        $test_store->addBrand($test_brand);
+
+        //Assert
+        $this->assertEquals($test_store->getBrands(), [$test_brand]);
+      }
+
+      function test_getBrands()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $brandname = "Nike";
+        $id2 = 2;
+        $test_brand = new Brand($brandname, $id2);
+        $test_brand->save();
+
+        $brandname2 = "Adidas";
+        $id3 = 3;
+        $test_brand2 = new Brand($brandname2, $id3);
+        $test_brand2->save();
+
+        //Act
+        $test_store->addBrand($test_brand);
+        $test_store->addBrand($test_brand2);
+
+        //Assert
+        $this->assertEquals($test_store->getBrands(), [$test_brand, $test_brand2]);
+      }
     }
 ?>
