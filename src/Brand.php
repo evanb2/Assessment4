@@ -43,7 +43,7 @@
     {
       $returned_brands = $GLOBALS['DB']->query("SELECT * FROM brands;");
       $brands = array();
-      foreach($returned_brands as $brands) {
+      foreach($returned_brands as $brand) {
         $brandname = $brand['brandname'];
         $id = $brand['id'];
         $new_brand = new Brand($brandname, $id);
