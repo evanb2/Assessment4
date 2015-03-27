@@ -31,5 +31,19 @@
         //Assert
         $this->assertEquals($storename, $result);
       }
+
+      function test_getId()
+      {
+        //Arrange
+        $storename = "Really Good Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+
+        //Act
+        $result = $test_store->getId();
+
+        //Assert
+        $this->assertEquals(1, $result);
+      }
     }
 ?>
