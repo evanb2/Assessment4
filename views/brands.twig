@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>Shoe Store Database</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+  <div class='container'>
+    <h1>Brands</h1>
+
+    {% if brands is not empty %}
+      <p>All brands in our Stores:</p>
+      <ol>
+        {% for brand in brands %}
+          <li><a href='/brands/{{ brand.getId }}'>Name: {{ brand.getBrandname }} </a></li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+
+    <form action='/brands' method='post'>
+      <label for='brandname'>Brand: </label>
+      <input id='brandname' name='brandname' type='text'>
+
+      <button type='submit'>Add Brand</button>
+    </form>
+    <form action='/delete_brands' method='post'>
+      <button type='submit'>Delete</button>
+    </form>
+    <p><a href='/'>Home</a></p>
+  </div>
+</body>
+</html>

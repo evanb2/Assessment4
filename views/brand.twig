@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Shoe Store Database</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+  <div class='container'>
+    <h1>{{ brand.getBrandname }}</h1>
+
+    {% if stores is not empty %}
+      <p>This Brand is available at these Stores:</p>
+      <ul>
+        {% for store in stores %}
+          <li>{{ store.getStorename }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <h4>Add a Store where this Brand is available for purchase:</h4>
+
+    <form action='/add_stores' method='post'>
+      <input id='brand_id' name='brand_id' type='hidden' value='{{ brand.getId }}'>
+
+      <label for='store_id'>Select a Store: </label>
+      <select id='store_id' name='store_id' type='text'>
+        {% for store in all_stores %}
+          <option value='{{ store.getId }}'>{{ store.getStorename }}</option>
+        {% endfor %}
+      </select>
+      <button type='submit'>Add Store</button>
+    </form>
+    <p><a href='/brands/{{ brand.getId }}/edit'>Edit this Brand</a></p>
+    <p><a href='/'>Home</a></p>
+  </div>
+</body>
+</html>
