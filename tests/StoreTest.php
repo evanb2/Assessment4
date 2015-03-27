@@ -6,7 +6,7 @@
     */
 
     require_once "src/Store.php";
-    // require_once "src/Brand.php";
+    require_once "src/Brand.php";
 
     $DB = new PDO('pgsql:host=localhost;dbname=shoes_test');
 
@@ -15,7 +15,7 @@
       protected function tearDown()
       {
         Store::deleteAll();
-        // Brand::deleteAll();
+        Brand::deleteAll();
       }
 
       function test_getStorename()
@@ -153,5 +153,16 @@
         //Assert
         $this->assertEquals($new_storename, $test_store->getStorename());
       }
+
+      // function test_delete()
+      // {
+      //   //Arrange
+      //   $storename = "Redwing Shoes";
+      //   $id = 1;
+      //   $test_store = new Store($storename, $id);
+      //   $test_store->save();
+      //
+      //   $brandname =
+      // }
     }
 ?>
