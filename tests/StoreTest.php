@@ -116,5 +116,25 @@
         //Assert
         $this->assertEquals([], $result);
       }
+
+      function test_find()
+      {
+        //Arrange
+        $storename = "Redwing Shoes";
+        $id = 1;
+        $test_store = new Store($storename, $id);
+        $test_store->save();
+
+        $storename2 = "Danner";
+        $id2 = 2;
+        $test_store2 = new Store($storename2, $id2);
+        $test_store2->save();
+
+        //Act
+        $result = Store::find($test_store->getId());
+
+        //Assert
+        $this->assertEquals($test_store, $result);
+      }
     }
 ?>
