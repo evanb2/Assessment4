@@ -46,17 +46,16 @@
 
     function getStores()
     {
-      $query = $GLOBALS['DB']->query("SELECT store_id FROM stores_brands WHERE brand_id = {$this->getId()};");
+      $query = $GLOBALS['DB']->query("SELECT stores.* FROM brands
+        JOIN stores_brands ON(brands.id = stores_brands.brand_id)
+        JOIN stores ON(stores_brands.store_id = stores.id)
+        WHERE brands.id = {$this->getId()};");
+
       $store_ids = $query->fetchAll(PDO::FETCH_ASSOC);
-
       $stores = array();
-      foreach($store_ids as $id) {
-        $store_id = $id['store_id'];
-        $result = $GLOBALS['DB']->query("SELECT * FROM stores WHERE id = {$store_id};");
-        $returned_store = $result->fetchAll(PDO::FETCH_ASSOC);
-
-        $storename = $returned_store[0]['storename'];
-        $id = $returned_store[0]['id'];
+      foreach($store_ids as $store) {
+        $storename = $store['storename'];
+        $id = $store['id'];
         $new_store = new Store($storename, $id);
         array_push($stores, $new_store);
       }
