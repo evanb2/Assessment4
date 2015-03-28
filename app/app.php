@@ -30,13 +30,15 @@
   //READ singular store
   $app->get("/stores/{id}", function($id) use ($app) {
     $store = Store::find($id);
-    return $app['twig']->render('store.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+    return $app['twig']->render('store.twig', array('store' => $store, 'brands' =>
+      $store->getBrands(), 'all_brands' => Brand::getAll()));
   });
 
   //READ singular brand
   $app->get("/brands/{id}", function($id) use ($app) {
     $brand = Brand::find($id);
-    return $app['twig']->render('brand.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
+    return $app['twig']->render('brand.twig', array('brand' => $brand, 'stores' =>
+      $brand->getStores(), 'all_stores' => Store::getAll()));
   });
 
   //store EDIT form
@@ -66,7 +68,8 @@
     $store = Store::find($_POST['store_id']);
     $brand = Brand::find($_POST['brand_id']);
     $brand->addStore($store);
-    return $app['twig']->render('brand.twig', array('brand' => $brand, 'brands' => Brand::getAll(), 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
+    return $app['twig']->render('brand.twig', array('brand' => $brand, 'brands' =>
+      Brand::getAll(), 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
   });
 
   //CREATE add brands to stores
@@ -74,7 +77,8 @@
     $store = Store::find($_POST['store_id']);
     $brand = Brand::find($_POST['brand_id']);
     $store->addBrand($brand);
-    return $app['twig']->render('store.twig', array('store' => $store, 'stores' => Store::getAll(), 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+    return $app['twig']->render('store.twig', array('store' => $store, 'stores' =>
+      Store::getAll(), 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
   });
 
   //DELETE all stores
@@ -95,7 +99,8 @@
     $storename = $_POST['storename'];
     $store = Store::find($id);
     $store->update($storename);
-    return $app['twig']->render('stores.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+    return $app['twig']->render('stores.twig', array('store' => $store, 'brands' =>
+      $store->getBrands(), 'all_brands' => Brand::getAll()));
   });
 
   return $app;

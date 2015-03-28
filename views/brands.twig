@@ -11,7 +11,7 @@
       <p>All brands in our Stores:</p>
       <ol>
         {% for brand in brands %}
-          <li><a href='/brands/{{ brand.getId }}'>Name: {{ brand.getBrandname }} </a></li>
+          <li><a href='/brands/{{ brand.getId }}'> {{ brand.getBrandname }} </a></li>
         {% endfor %}
       </ol>
     {% endif %}
