@@ -99,8 +99,7 @@
     $storename = $_POST['storename'];
     $store = Store::find($id);
     $store->update($storename);
-    return $app['twig']->render('stores.twig', array('store' => $store, 'brands' =>
-      $store->getBrands(), 'all_brands' => Brand::getAll()));
+    return $app['twig']->render('store.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
   });
 
   return $app;
