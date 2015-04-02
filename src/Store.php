@@ -46,31 +46,31 @@
   function delete()
   {
     $GLOBALS['DB']->exec("DELETE FROM stores WHERE id = {$this->getId()};");
-    $GLOBALS['DB']->exec("DELETE FROM stores_brands WHERE store_id = {$this->getId()};");
+    $GLOBALS['DB']->exec("DELETE FROM brands_stores WHERE store_id = {$this->getId()};");
   }
 
   function addBrand($brand)
   {
-    $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
+      $GLOBALS['DB']->exec("INSERT INTO brands_stores (store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
   }
 
   function getBrands()
   {
     $statement = $GLOBALS['DB']->query("SELECT brands.* FROM stores
-                JOIN stores_brands ON (stores.id = stores_brands.store_id)
-                JOIN brands ON (stores_brands.brand_id = brands.id)
+                JOIN brands_stores ON (stores.id = brands_stores.store_id)
+                JOIN brands ON (brands_stores.brand_id = brands.id)
                 WHERE stores.id = {$this->getId()};");
-                $brand_ids = $statement->fetchAll(PDO::FETCH_ASSOC);
-                $brands = array();
-                foreach ($brand_ids as $brand) {
-                    $brandname = $brand['brandname'];
-                    $id = $brand['id'];
-                    $new_brand = new Brand($brandname, $id);
-                    array_push($brands, $new_brand);
-                }
-                return $brands;
-
+    $brand_ids = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $brands = array();
+    foreach ($brand_ids as $brand) {
+        $brandname = $brand['brandname'];
+        $id = $brand['id'];
+        $new_brand = new Brand($brandname, $id);
+        array_push($brands, $new_brand);
+    }
+    return $brands;
   }
+
   //static functions
   static function getAll()
   {
@@ -101,7 +101,7 @@
   static function deleteAll()
   {
     $GLOBALS['DB']->exec("DELETE FROM stores *;");
-    $GLOBALS['DB']->exec("DELETE FROM stores_brands *;");
+    $GLOBALS['DB']->exec("DELETE FROM brands_stores *;");
   }
 
 
