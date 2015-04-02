@@ -1,32 +1,32 @@
 <html>
 <head>
-  <title>Shoe Store Database</title>
-  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <title>Shoe Store Database</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
 </head>
 <body>
-  <br>
-  <div class='container'>
-    {% if stores is not empty %}
-      <p>All available stores:</p>
-      <ul>
-        {% for store in stores %}
-          <li><a href="/stores/{{ store.getId }}">{{ store.getStorename }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+    <br>
+    <div class='container'>
+        {% if stores is not empty %}
+            <p>All available stores:</p>
+            <ul>
+                {% for store in stores %}
+                    <li><a href="/stores/{{ store.getId }}">{{ store.getStorename }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-    <h3>Enter a Store</h3>
-    <form action='/stores' method='post'>
-      <label for='storename'>Store Name:</label>
-      <input id='storename' name='storename' type='text'>
+        <h3>Enter a Store</h3>
+        <form action='/stores' method='post'>
+            <label for='storename'>Store Name:</label>
+            <input id='storename' name='storename' type='text'>
 
-      <button type='submit'>Add Store to Databse</button>
-    </form>
-    <form action='/delete_stores' method='post'>
-      <button type='submit'>Remove All Stores from Registry</button>
-    </form>
+            <button type='submit'>Add Store to Databse</button>
+        </form>
+        <form action='/delete_stores' method='post'>
+            <button type='submit'>Remove All Stores from Registry</button>
+        </form>
 
-    <p><a href='/'>Home</a></p>
-  </div>
+        <p><a href='/'>Home</a></p>
+    </div>
 </body>
 </html>
